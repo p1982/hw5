@@ -57,11 +57,21 @@ function customShuffle(array) {
     if (!Array.isArray(array)) {
         throw new Error('Invalid arguments. Expected an array and a callback function.');
     }
-    const shuffledArray = array.slice();
+    const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
+    // let temp = null;
+    // let arrayLength = shuffledArray.length;
+    // let random = null
+    // while(arrayLength){
+    //     arrayLength--;
+    //     random = Math.floor(Math.random() * arrayLength)
+    //     temp = shuffledArray[random]
+    //     shuffledArray[random] = shuffledArray[arrayLength]
+    //     shuffledArray[arrayLength] = temp
+    // }
     return shuffledArray;
 }
 
@@ -79,6 +89,7 @@ function getArrayIntersection(arr1, arr2) {
 
     const set1 = new Set(arr1);
     const intersection = arr2.filter(item => set1.has(item));
+    // const intersection = arr2.filter(item => arr1.includes(item));
     return intersection;
 }
 
@@ -86,10 +97,7 @@ function getArrayUnion(arr1, arr2) {
     if (!Array.isArray(arr1)  || !Array.isArray(arr2)) {
         throw new Error('Invalid arguments. Expected an array and a callback function.');
     }
-
-    const set = new Set([...arr1, ...arr2]);
-    const union = Array.from(set);
-    return union;
+    return  [...new Set([...arr1, ...arr2])];
 }
 
 // Example usage:
