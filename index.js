@@ -4,28 +4,29 @@ function customFilterUnique(array, callback) {
     if (!Array.isArray(array) || typeof callback !== 'function') {
         throw new Error('Invalid arguments. Expected an array and a callback function.');
     }
-    const uniqueSet = new Set();
-    return array.filter(item => {
-        const key = callback(item);
-        if (!uniqueSet.has(key)) {
-            uniqueSet.add(key);
-            return true;
+    const nameSet = new Set();
+    const uniqueNames = [];
+    array.forEach(item => {
+        const name = callback(item);
+        if (!nameSet.has(name)) {
+            nameSet.add(name);
+        } else {
+            nameSet.delete(name)
         }
-        return false;
     });
+    return [...nameSet];
 }
 
 // Example usage:
 const data = [
-    { id: 1, name: 'John' },
-    { id: 2, name: 'Jane' },
-    { id: 1, name: 'John' },
-    { id: 3, name: 'Alice' }
+    { name: 'Tomas' },
+    { name: 'Tomas' },
+    { name: 'Ilya' },
+    { name: 'Alexandrina' }
 ];
 
-const uniqueById = customFilterUnique(data, item => item.id);
-console.log(uniqueById); // Output: [{ id: 1, name: 'John' }, { id: 2, name: 'Jane' }, { id: 3, name: 'Alice' }]
-
+const uniqueNames = customFilterUnique(data, item => item.name);
+console.log(uniqueNames); // Output: []
 
 // Task 2: Array Chunking
 
